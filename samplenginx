@@ -4,8 +4,6 @@ kind: Deployment
 metadata:
   name: nginx
 spec:
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
       app: nginx
