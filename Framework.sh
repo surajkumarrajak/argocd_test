@@ -42,12 +42,23 @@ then
 			read DepApp
 			if [ $DepApp -eq 1 ]
 			then
-				echo "Please provide your git url containing application to deploy"
-				mkdir DeployApp
+				echo "Please provide your git url containing application to deploy. If directory is already created provide only git url"
+				#mkdir DeployApp
 				read gitUrl
 				echo "gitUrl=$gitUrl" >> DeployApp/jenkins_variable
-#				java -jar jenkins-cli.jar -s Jenkins_URL -webSocket build JOB_NAME
-				exit
+				echo "Provide job name for pipeline"
+				read jobName
+				java -jar jenkins-cli.jar -s http://localhost:8080/ -auth admin:admin create-job "$jobName" < config.xml
+				if [ $? -eq 0 ]
+				then
+    				echo "Job $jobName created successfully....now building the job"
+						sleep 10
+					java -jar jenkins-cli.jar -s  http://localhost:8080/  -auth admin:admin build $jobName
+				else
+    				echo "Failure..look into the stacktrace"
+				fi
+				#java -jar jenkins-cli.jar -s Jenkins_URL -webSocket build JOB_NAME
+				#exit
 			else
 				echo "You have opted not to deploy application..exiting"
 				exit
