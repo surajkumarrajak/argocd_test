@@ -16,12 +16,18 @@ pipeline{
                 }
             }
         }
-          stage('Building our image') { 
+        stage('Test'){
+            steps{
+                sh 'mvn -f my-app/pom.xml test'            
+            }
+        }
+        stage('Building Docker image') { 
             steps { 
                 script { 
                     dockerImage = docker.build "myapp" + ":$BUILD_NUMBER" 
                 }
             }
         }
+
     }
 }
