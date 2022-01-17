@@ -11,6 +11,7 @@ pipeline{
             post {
                 success {
                     echo "Now Archiving the Artifacts...."
+                    
                     archiveArtifacts artifacts: '**/*.jar'
                 }
             }
@@ -18,7 +19,7 @@ pipeline{
           stage('Building our image') { 
             steps { 
                 script { 
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                    dockerImage = docker.build "/home/suraj/K8SFramework/DeployApp/myApp" + ":$BUILD_NUMBER" 
                 }
             }
         }
