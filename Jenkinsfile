@@ -19,7 +19,7 @@ pipeline{
           stage('Building our image') { 
             steps { 
                 script { 
-                    dockerImage = docker.build "myApp" + ":$BUILD_NUMBER" 
+                    dockerImage = docker.build "myapp" + ":$BUILD_NUMBER" 
                 }
             }
         }
