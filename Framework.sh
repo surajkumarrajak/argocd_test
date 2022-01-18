@@ -49,6 +49,9 @@ then
 				echo "Provide job name for pipeline"
 				read jobName
 				java -jar jenkins-cli.jar -s http://localhost:8080/ -auth admin:admin create-job "$jobName" < config.xml
+				java -jar jenkins-cli.jar -s http://localhost:8080/ -auth admin:admin create-job "updatemanifest" < manifest.xml
+				sleep 10
+
 				if [ $? -eq 0 ]
 				then
     				echo "Job $jobName created successfully....now building the job"
